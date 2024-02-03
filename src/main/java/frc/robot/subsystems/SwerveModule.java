@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.signals.AbsoluteSensorRangeValue;
+import com.ctre.phoenix6.signals.SensorDirectionValue;
 import com.revrobotics.CANSparkBase;
 import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -48,11 +49,12 @@ public class SwerveModule extends SubsystemBase {
     angleController = angleMotor.getPIDController();
     configAngleMotor();
 
-    m_turnCancoder = new CANcoder(moduleConstants.canCoderID, "CV1");
+    m_turnCancoder = new CANcoder(moduleConstants.canCoderID);
 
     var can_config = new CANcoderConfiguration();
     can_config.MagnetSensor.AbsoluteSensorRange = AbsoluteSensorRangeValue.Unsigned_0To1;
     m_turnCancoder.getConfigurator().apply(can_config);
+    
 
     /* Drive Motor Config */
     driveMotor = new CANSparkMax(moduleConstants.driveMotorID, MotorType.kBrushless);
@@ -61,6 +63,8 @@ public class SwerveModule extends SubsystemBase {
     configDriveMotor();
 
     lastAngle = getState().angle;
+
+    integratedAngleEncoder.setPosition(0);
   }
 
   public void setDesiredState(SwerveModuleState desiredState, boolean isOpenLoop) {
@@ -74,7 +78,7 @@ public class SwerveModule extends SubsystemBase {
   }
 
   public void resetAngleToAbsolute() {
-    double angle = (m_turnCancoder.getAbsolutePosition().getValueAsDouble() * 360 - angleOffset.getDegrees());
+    double angle = ((m_turnCancoder.getAbsolutePosition().getValueAsDouble() * 360) - angleOffset.getDegrees());
     integratedAngleEncoder.setPosition(angle);
     SmartDashboard.putNumber("Set angle" + String.valueOf(moduleNumber), angle);
   }
@@ -162,6 +166,8 @@ public class SwerveModule extends SubsystemBase {
         m_turnCancoder.getPosition().getValueAsDouble());
     SmartDashboard.putNumber(String.valueOf(moduleNumber) + " cancoderAbs",
         m_turnCancoder.getAbsolutePosition().getValueAsDouble());
+      SmartDashboard.putNumber(String.valueOf(moduleNumber) + "relativeEncoder",
+        integratedAngleEncoder.getPosition());
 
   }
 }

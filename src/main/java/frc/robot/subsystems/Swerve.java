@@ -48,6 +48,7 @@ public class Swerve extends SubsystemBase {
 
     field = new Field2d();
     SmartDashboard.putData("Field", field);
+    
     resetModuleEncoders();
   }
 
@@ -99,23 +100,23 @@ public class Swerve extends SubsystemBase {
     return states;
   }
 
-  public void zeroGyro() {
+  public void zeroGyro() { 
     gyro.reset();
   }
 
-  public Rotation2d getYaw() {
+  public Rotation2d getYaw() { // gets the angle the robot is facing
     return (Constants.Swerve.invertGyro) ? Rotation2d.fromDegrees(360 - gyro.getYaw()) : Rotation2d.fromDegrees(gyro.getYaw());
   }
 
-  public double getHeadingDegrees() {
+  public double getHeadingDegrees() { //gets the direction the robot is heading
     return -Math.IEEEremainder((gyro.getAngle()), 360);
   }
 
   @Override
-  public void periodic() {
+  public void periodic() { //defines what happens during teleop periodic and auton periodic
     swervePoseEstimator.update(getYaw(), getPositions());
     field.setRobotPose(getPose());
-    SmartDashboard.putNumber("X Meters", swervePoseEstimator.getEstimatedPosition().getX());
+    SmartDashboard.putNumber("X Meters", swervePoseEstimator.getEstimatedPosition().getX()); //puts the estimated position of the robot on the dashboard
     SmartDashboard.putNumber("Y Meters", swervePoseEstimator.getEstimatedPosition().getY());
     SmartDashboard.putNumber("Yaw",getHeadingDegrees());
   }

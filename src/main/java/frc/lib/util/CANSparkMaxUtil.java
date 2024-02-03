@@ -26,7 +26,7 @@ public class CANSparkMaxUtil {
    * @param enableFollowing Whether to enable motor following.
    */
   public static void setCANSparkMaxBusUsage(
-      CANSparkMax motor, Usage usage, boolean enableFollowing) {
+      CANSparkMax motor, Usage usage, boolean enableFollowing) {// changes the rate the motor controllers recive command  from the robot
     if (enableFollowing) {
       motor.setPeriodicFramePeriod(CANSparkLowLevel.PeriodicFrame.kStatus0, 10);
     } else {

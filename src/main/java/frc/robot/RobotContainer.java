@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.autos.*;
 import frc.robot.commands.TeleopSwerve;
+import frc.robot.commands.TeleopHooks;
 import frc.robot.subsystems.*;
 
 /**
@@ -23,21 +24,25 @@ import frc.robot.subsystems.*;
 public class RobotContainer {
   /* Controllers */
   private final Joystick driver = new Joystick(0);
-
+  private final Joystick hookCo = new Joystick(1);
   /* Drive Controls */
   private final int translationAxis = XboxController.Axis.kLeftY.value;
   private final int strafeAxis = XboxController.Axis.kLeftX.value;
   private final int rotationAxis = XboxController.Axis.kRightX.value;
-
+  private final int hookAxis = XboxController.Axis.kRightY.value;
   /* Driver Buttons */
+  //private final JoystickButton Lifthook = new JoystickButton(driver, XboxController.Button.kA.value);
   private final JoystickButton zeroGyro =
       new JoystickButton(driver, XboxController.Button.kY.value);
   private final JoystickButton robotCentric =
       new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-
+  // private final JoystickButton turbo =
+  //     new JoystickButton(driver, XboxController.Button.kA.value);
   /* Subsystems */
   private final Swerve s_Swerve = new Swerve();
 
+  
+  private final Hooks h_hook = new Hooks();
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     s_Swerve.setDefaultCommand(
@@ -46,8 +51,16 @@ public class RobotContainer {
             () -> -driver.getRawAxis(translationAxis),
             () -> -driver.getRawAxis(strafeAxis),
             () -> -driver.getRawAxis(rotationAxis),
-            () -> robotCentric.getAsBoolean()));
-
+            () -> robotCentric.getAsBoolean()
+            /*() -> turbo.getAsBoolean()*/));
+            
+   
+    h_hook.setDefaultCommand(
+      new TeleopHooks(
+        h_hook,
+        () -> hookCo.getRawAxis(hookAxis)));
+      
+  
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -61,6 +74,8 @@ public class RobotContainer {
   private void configureButtonBindings() {
     /* Driver Buttons */
     zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+    // Lifthook.onTrue(/* maxExtend(go)*/ );
+    
   }
 
   /**

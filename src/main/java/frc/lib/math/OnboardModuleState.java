@@ -14,7 +14,8 @@ public class OnboardModuleState {
    * @param desiredState The desired state.
    * @param currentAngle The current module angle.
    */
-  public static SwerveModuleState optimize(
+  public static SwerveModuleState optimize(//takes in the destination and the location and calculates how it gets there
+
       SwerveModuleState desiredState, Rotation2d currentAngle) {
     double targetAngle =
         placeInAppropriate0To360Scope(currentAngle.getDegrees(), desiredState.angle.getDegrees());
@@ -25,14 +26,13 @@ public class OnboardModuleState {
       targetAngle = delta > 90 ? (targetAngle -= 180) : (targetAngle += 180);
     }
     return new SwerveModuleState(targetSpeed, Rotation2d.fromDegrees(targetAngle));
-  }
-
+  } 
   /**
    * @param scopeReference Current Angle
    * @param newAngle Target Angle
    * @return Closest angle within scope
    */
-  private static double placeInAppropriate0To360Scope(double scopeReference, double newAngle) {
+  private static double placeInAppropriate0To360Scope(double scopeReference, double newAngle) { //resets the angle if it is lower than 0 or grater than 360
     double lowerBound;
     double upperBound;
     double lowerOffset = scopeReference % 360;

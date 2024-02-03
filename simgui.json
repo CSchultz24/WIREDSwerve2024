@@ -6,7 +6,6 @@
     },
     "windows": {
       "/SmartDashboard/Field": {
-        "image": "C:\\Users\\boyle\\Downloads\\2160xDarkCroppedFixed.png",
         "window": {
           "visible": true
         }

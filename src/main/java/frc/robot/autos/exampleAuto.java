@@ -16,7 +16,7 @@ import frc.robot.subsystems.Swerve;
 import java.util.List;
 
 public class exampleAuto extends SequentialCommandGroup {
-  public exampleAuto(Swerve s_Swerve) {
+  public exampleAuto(Swerve s_Swerve) { //calls constraints for swerve drive so it does not run into a wall
     TrajectoryConfig config =
         new TrajectoryConfig(
                 Constants.AutoConstants.kMaxSpeedMetersPerSecond,
@@ -42,7 +42,7 @@ public class exampleAuto extends SequentialCommandGroup {
             Constants.AutoConstants.kThetaControllerConstraints);
     thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
-    SwerveControllerCommand swerveControllerCommand =
+    SwerveControllerCommand swerveControllerCommand = //sends out the command to the swerve drive to go to set location
         new SwerveControllerCommand(
             exampleTrajectory,
             s_Swerve::getPose,
@@ -53,7 +53,7 @@ public class exampleAuto extends SequentialCommandGroup {
             s_Swerve::setModuleStates,
             s_Swerve);
 
-    addCommands(
+    addCommands( //resets the estimator so it dosent get mad
         new InstantCommand(() -> s_Swerve.resetPoseEstimator(exampleTrajectory.getInitialPose())),
         swerveControllerCommand);
   }
