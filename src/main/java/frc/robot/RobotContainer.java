@@ -36,13 +36,16 @@ public class RobotContainer {
       new JoystickButton(driver, XboxController.Button.kY.value);
   private final JoystickButton robotCentric =
       new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton runIntake = 
+      new JoystickButton(hookCo, XboxController.Button.kA.value);
   // private final JoystickButton turbo =
   //     new JoystickButton(driver, XboxController.Button.kA.value);
   /* Subsystems */
   private final Swerve s_Swerve = new Swerve();
 
-  
   private final Hooks h_hook = new Hooks();
+
+  private final Conveyor c_Conveyor = new Conveyor();
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     s_Swerve.setDefaultCommand(
@@ -75,7 +78,9 @@ public class RobotContainer {
     /* Driver Buttons */
     zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
     // Lifthook.onTrue(/* maxExtend(go)*/ );
+    runIntake.onTrue(new InstantCommand(() -> c_Conveyor.runIntake()));
     
+    runIntake.onFalse(new InstantCommand(() -> c_Conveyor.stopIntake()));
   }
 
   /**
