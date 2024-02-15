@@ -34,7 +34,7 @@ public class Conveyor extends SubsystemBase {
         topIntakeMotor.set(0);
         bottomIntakeMotor.set(0);
         conveyorMotor.set(0);
-        shooterMotor.set(0); 
+        shooterMotor.set(0);  
     }
 
 }
