@@ -23,7 +23,7 @@ public class Hooks extends SubsystemBase{
     private RelativeEncoder rightHookEncoder;
 
    
-
+    //define hooks just one
     public Hooks(){
         hookMaxLength = Constants.Hooks.hookLength; //constructor
 
@@ -38,12 +38,12 @@ public class Hooks extends SubsystemBase{
         rightHookEncoder = rightHookMotor.getEncoder();
 
     }
-
-    public void periodic(){ // runs periodically during teleop
+    // runs periodically during teleop
+    public void periodic(){ 
         SmartDashboard.putNumber("Encoder left hook", leftHookEncoder.getPosition());
         SmartDashboard.putNumber("Encoder right hook", rightHookEncoder.getPosition());
     }
-    
+    //checking stick imput to move the hook 
     public void setHookToJoystick(double stickInput){
         leftHookMotor.set(stickInput);
         rightHookMotor.set(stickInput);

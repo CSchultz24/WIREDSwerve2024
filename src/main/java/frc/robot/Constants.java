@@ -20,8 +20,8 @@ public final class Constants {
     public static final boolean invertGyro = true; // Always ensure Gyro is CCW+ CW-
 
     /* Drivetrain Constants */
-    public static final Measure<Distance> trackWidth = Inches.of(24.5);
-    public static final Measure<Distance> wheelBase = Inches.of(16);
+    public static final Measure<Distance> trackWidth = Inches.of(16);
+    public static final Measure<Distance> wheelBase = Inches.of(24.5);
     public static final Measure<Distance> wheelDiameter = Meters.of(Meters.convertFrom(4.0, Inches));
     public static final Measure<Distance> wheelCircumference = Meters.of(wheelDiameter.magnitude() * Math.PI);
 
@@ -80,7 +80,7 @@ public final class Constants {
     public static final IdleMode driveNeutralMode = IdleMode.kBrake;
 
     /* Motor Inverts */
-    public static final boolean driveInvert = false;
+    public static final boolean driveInvert = true;
     public static final boolean angleInvert = true;
 
     /* Angle Encoder Invert */
@@ -102,7 +102,7 @@ public final class Constants {
       public static final int driveMotorID = 1;
       public static final int angleMotorID = 5;
       public static final int cancoderID = 9;
-      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(168);
+      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(0);
       public static final SwerveModuleConstants constants = new SwerveModuleConstants(driveMotorID, angleMotorID,
           cancoderID, angleOffset);
     }
@@ -122,7 +122,7 @@ public final class Constants {
       public static final int driveMotorID = 4;
       public static final int angleMotorID = 8;
       public static final int cancoderID = 13;
-      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(306);
+      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-180);
       public static final SwerveModuleConstants constants = new SwerveModuleConstants(driveMotorID, angleMotorID,
           cancoderID, angleOffset);
     }

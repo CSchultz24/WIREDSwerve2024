@@ -7,6 +7,7 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import frc.robot.Constants;
+import edu.wpi.first.wpilibj.Timer;
 
 
 public class Conveyor extends SubsystemBase {
@@ -35,6 +36,21 @@ public class Conveyor extends SubsystemBase {
         bottomIntakeMotor.set(0);
         conveyorMotor.set(0);
         shooterMotor.set(0);  
+    }
+
+    public void autonShoot(){
+        Timer t_Timer = new Timer();
+        t_Timer.start();
+
+        while(t_Timer.get() <= 1){
+            shooterMotor.set(0.5);
+        }
+        while(t_Timer.get() > 1 && t_Timer.get() <= 2){
+            conveyorMotor.set(0.5);
+        }
+        t_Timer.stop();
+        shooterMotor.stopMotor();
+        conveyorMotor.stopMotor();
     }
 
 }
