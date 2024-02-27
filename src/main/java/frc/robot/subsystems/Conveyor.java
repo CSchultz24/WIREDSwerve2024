@@ -16,7 +16,7 @@ public class Conveyor extends SubsystemBase {
     private CANSparkMax bottomIntakeMotor;
     private CANSparkMax conveyorMotor;
     private CANSparkMax shooterMotor;
-
+    private Timer t_Timer = new Timer();
     public Conveyor(){
         topIntakeMotor = new CANSparkMax(Constants.Conveyor.topIntakeMotorID, MotorType.kBrushless);
         bottomIntakeMotor = new CANSparkMax(Constants.Conveyor.bottomIntakeMotorID, MotorType.kBrushless);
@@ -25,30 +25,59 @@ public class Conveyor extends SubsystemBase {
     }
 
     public void runIntake(){
-        topIntakeMotor.set(-0.5);
-        bottomIntakeMotor.set(0.5);
+        topIntakeMotor.set(-1);
+        bottomIntakeMotor.set(1);
         conveyorMotor.set(0.5);
-        shooterMotor.set(0.5);
+        //shooterMotor.set(1);
     }
 
     public void stopIntake(){
         topIntakeMotor.set(0);
         bottomIntakeMotor.set(0);
         conveyorMotor.set(0);
+        //shooterMotor.set(0);  
+    }
+
+    public void runConveyor(){
+        conveyorMotor.set(0.2);
+        shooterMotor.set(0.2); 
+    }
+
+    public void stopConveyor(){
+        conveyorMotor.set(0);
         shooterMotor.set(0);  
     }
 
+    public void shoot(){
+        shooterMotor.set(1);
+    }
+
+    public void dontShoot(){
+        shooterMotor.stopMotor();
+    }
+
+    public void reverseConveyor(){
+        shooterMotor.set(-0.5);
+        conveyorMotor.set(-0.5);
+    }
+
+    public void dontReverse(){
+        shooterMotor.set(0);
+        conveyorMotor.set(0);
+    }
+
     public void autonShoot(){
-        Timer t_Timer = new Timer();
+        
         t_Timer.start();
 
         while(t_Timer.get() <= 1){
-            shooterMotor.set(0.5);
+            shooterMotor.set(1);
         }
-        while(t_Timer.get() > 1 && t_Timer.get() <= 2){
+        while(t_Timer.get() > 1 && t_Timer.get() <= 3){
             conveyorMotor.set(0.5);
         }
         t_Timer.stop();
+        t_Timer.reset();
         shooterMotor.stopMotor();
         conveyorMotor.stopMotor();
     }

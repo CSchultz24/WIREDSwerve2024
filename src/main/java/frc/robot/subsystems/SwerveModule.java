@@ -51,9 +51,9 @@ public class SwerveModule extends SubsystemBase {
 
     m_turnCancoder = new CANcoder(moduleConstants.canCoderID);
 
-    var can_config = new CANcoderConfiguration();
-    can_config.MagnetSensor.AbsoluteSensorRange = AbsoluteSensorRangeValue.Unsigned_0To1;
-    m_turnCancoder.getConfigurator().apply(can_config);
+    // var can_config = new CANcoderConfiguration();
+    // can_config.MagnetSensor.AbsoluteSensorRange = AbsoluteSensorRangeValue.Unsigned_0To1;
+    // m_turnCancoder.getConfigurator().apply(can_config);
     
 
     /* Drive Motor Config */
@@ -78,7 +78,7 @@ public class SwerveModule extends SubsystemBase {
   }
 
   public void resetAngleToAbsolute() {
-    double angle = ((m_turnCancoder.getAbsolutePosition().getValueAsDouble() * 360) - angleOffset.getDegrees());
+    double angle = ((m_turnCancoder.getAbsolutePosition().getValueAsDouble() * 360)/* - angleOffset.getDegrees() */);
     integratedAngleEncoder.setPosition(angle);
     SmartDashboard.putNumber("Set angle" + String.valueOf(moduleNumber), angle);
   }

@@ -58,7 +58,7 @@ public class TeleopSwerve extends Command {
     //     }
     /* Drive */
     s_Swerve.drive( // the previous value is sent to the motor to move accordinly to the stick values
-        new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed/turboMultiplier),
+        new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed),
         rotationVal/4,
         !robotCentricSup.getAsBoolean(),
         true);

@@ -44,9 +44,12 @@ public class Hooks extends SubsystemBase{
         SmartDashboard.putNumber("Encoder right hook", rightHookEncoder.getPosition());
     }
     //checking stick imput to move the hook 
-    public void setHookToJoystick(double stickInput){
-        leftHookMotor.set(stickInput);
+    public void setRightHookToJoystick(double stickInput){
+        //leftHookMotor.set(stickInput);
         rightHookMotor.set(stickInput);
+    }
+    public void setLeftHookToJoystick(double stickInput){
+        leftHookMotor.set(stickInput);
     }
 
 }

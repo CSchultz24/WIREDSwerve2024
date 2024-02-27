@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.autos.*;
 import frc.robot.commands.TeleopSwerve;
+import frc.robot.commands.TeleopConveyor;
 import frc.robot.commands.TeleopHooks;
 import frc.robot.subsystems.*;
 
@@ -30,6 +31,9 @@ public class RobotContainer {
   private final int strafeAxis = XboxController.Axis.kLeftX.value;
   private final int rotationAxis = XboxController.Axis.kRightX.value;
   private final int hookAxis = XboxController.Axis.kRightY.value;
+  private final int leftHookAxis = XboxController.Axis.kLeftY.value;
+  //private final int rightTriggerHookCo = XboxController.Axis.kRightTrigger.value;
+  //private final int leftTriggerHookCo = XboxController.Axis.kLeftTrigger.value;
   /* Driver Buttons */
   //private final JoystickButton Lifthook = new JoystickButton(driver, XboxController.Button.kA.value);
   private final JoystickButton zeroGyro =
@@ -38,6 +42,12 @@ public class RobotContainer {
       new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     private final JoystickButton runIntake = 
       new JoystickButton(hookCo, XboxController.Button.kA.value);
+  private final JoystickButton shoot =
+      new JoystickButton(hookCo, XboxController.Button.kRightBumper.value);
+  private final JoystickButton shootAmp =
+      new JoystickButton(hookCo, XboxController.Button.kX.value);
+  private final JoystickButton reverseConveyor =
+      new JoystickButton(hookCo, XboxController.Button.kB.value);
   // private final JoystickButton turbo =
   //     new JoystickButton(driver, XboxController.Button.kA.value);
   /* Subsystems */
@@ -51,9 +61,9 @@ public class RobotContainer {
     s_Swerve.setDefaultCommand(
         new TeleopSwerve(
             s_Swerve,
-            () -> -driver.getRawAxis(translationAxis),
-            () -> -driver.getRawAxis(strafeAxis),
-            () -> -driver.getRawAxis(rotationAxis),
+            () -> driver.getRawAxis(translationAxis),
+            () -> driver.getRawAxis(strafeAxis),
+            () -> driver.getRawAxis(rotationAxis),
             () -> robotCentric.getAsBoolean()
             /*() -> turbo.getAsBoolean()*/));
             
@@ -61,9 +71,14 @@ public class RobotContainer {
     h_hook.setDefaultCommand(
       new TeleopHooks(
         h_hook,
-        () -> hookCo.getRawAxis(hookAxis)));
+        () -> hookCo.getRawAxis(hookAxis),
+        () -> hookCo.getRawAxis(leftHookAxis)));
       
-  
+    // c_Conveyor.setDefaultCommand(
+    //   new TeleopConveyor(
+    //     c_Conveyor, 
+    //     () -> hookCo.getRawAxis(rightTriggerHookCo),
+    //     () -> hookCo.getRawAxis(leftTriggerHookCo)));
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -81,6 +96,18 @@ public class RobotContainer {
     runIntake.onTrue(new InstantCommand(() -> c_Conveyor.runIntake()));
     
     runIntake.onFalse(new InstantCommand(() -> c_Conveyor.stopIntake()));
+
+    shoot.onTrue(new InstantCommand(() -> c_Conveyor.shoot()));
+
+    shoot.onFalse(new InstantCommand(() -> c_Conveyor.dontShoot()));
+
+    shootAmp.onTrue(new InstantCommand(() -> c_Conveyor.runConveyor()));
+
+    shootAmp.onFalse(new InstantCommand(() -> c_Conveyor.stopConveyor()));
+
+    reverseConveyor.onTrue(new InstantCommand(() -> c_Conveyor.reverseConveyor()));
+
+    reverseConveyor.onFalse(new InstantCommand(() -> c_Conveyor.dontReverse()));
   }
 
   /**
@@ -90,8 +117,8 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    //return new exampleAuto(s_Swerve);
-    return new inFrontAuto(s_Swerve, c_Conveyor);
+    return new exampleAuto(s_Swerve);
+    //return new inFrontAuto(s_Swerve, c_Conveyor);
 
   }
 }
