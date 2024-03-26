@@ -137,7 +137,7 @@ public final class Constants {
   }
 
   public static final class Conveyor{
-    public static final int topIntakeMotorID = 16;
+    //public static final int topIntakeMotorID = 16;
     public static final int bottomIntakeMotorID = 17;
     public static final int transportMotorID = 18;
     public static final int shooterMotorID = 19;

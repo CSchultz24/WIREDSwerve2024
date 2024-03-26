@@ -43,13 +43,13 @@ public class TeleopSwerve extends Command {
     /* Get Values, Deadband*/
     double translationVal =
         translationLimiter.calculate(
-            MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.Swerve.stickDeadband)); //takes in values of xbox controller sticks and converts them into a usable value by the motors
+            MathUtil.applyDeadband(-translationSup.getAsDouble(), Constants.Swerve.stickDeadband)); //takes in values of xbox controller sticks and converts them into a usable value by the motors
     double strafeVal =
         strafeLimiter.calculate(
-            MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.Swerve.stickDeadband)); 
+            MathUtil.applyDeadband(-strafeSup.getAsDouble(), Constants.Swerve.stickDeadband)); 
     double rotationVal =
         rotationLimiter.calculate(
-            MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.Swerve.stickDeadband));
+            MathUtil.applyDeadband(-rotationSup.getAsDouble(), Constants.Swerve.stickDeadband));
     // if(turboSup.getAsBoolean() == true){
     //       turboMultiplier = 1;
 

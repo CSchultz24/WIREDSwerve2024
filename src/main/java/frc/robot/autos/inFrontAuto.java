@@ -53,16 +53,16 @@ public class inFrontAuto extends SequentialCommandGroup {
             Constants.AutoConstants.kThetaControllerConstraints);
     thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
-    SwerveControllerCommand swerveControllerCommand = //sends out the command to the swerve drive to go to set location
-        new SwerveControllerCommand(
-            exampleTrajectory,
-            s_Swerve::getPose,
-            Constants.Swerve.swerveKinematics,
-            new PIDController(Constants.AutoConstants.kPXController, 0, 0),
-            new PIDController(Constants.AutoConstants.kPYController, 0, 0),
-            thetaController,
-            s_Swerve::setModuleStates,
-            s_Swerve);
+    // SwerveControllerCommand swerveControllerCommand = //sends out the command to the swerve drive to go to set location
+    //     new SwerveControllerCommand(
+    //         exampleTrajectory,
+    //         s_Swerve::getPose,
+    //         Constants.Swerve.swerveKinematics,
+    //         new PIDController(Constants.AutoConstants.kPXController, 0, 0),
+    //         new PIDController(Constants.AutoConstants.kPYController, 0, 0),
+    //         thetaController,
+    //         s_Swerve::setModuleStates,
+    //         s_Swerve);
 
     SwerveControllerCommand inFrontSwerveCommand =
         new SwerveControllerCommand(

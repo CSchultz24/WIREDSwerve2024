@@ -78,7 +78,7 @@ public class SwerveModule extends SubsystemBase {
   }
 
   public void resetAngleToAbsolute() {
-    double angle = ((m_turnCancoder.getAbsolutePosition().getValueAsDouble() * 360)/* - angleOffset.getDegrees() */);
+    double angle = ((m_turnCancoder.getAbsolutePosition().getValueAsDouble() * 360) /*- angleOffset.getDegrees()*/ );
     integratedAngleEncoder.setPosition(angle);
     SmartDashboard.putNumber("Set angle" + String.valueOf(moduleNumber), angle);
   }
@@ -156,6 +156,10 @@ public class SwerveModule extends SubsystemBase {
 
   public SwerveModulePosition getState() {
     return new SwerveModulePosition(driveEncoder.getPosition(), getAngle());
+  }
+
+  public double getEncoderPosition(){
+    return driveEncoder.getPosition();
   }
 
   @Override

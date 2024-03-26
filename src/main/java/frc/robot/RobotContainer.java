@@ -36,6 +36,9 @@ public class RobotContainer {
   //private final int leftTriggerHookCo = XboxController.Axis.kLeftTrigger.value;
   /* Driver Buttons */
   //private final JoystickButton Lifthook = new JoystickButton(driver, XboxController.Button.kA.value);
+
+  /* these are the controller inputs for both drive and shot/climb */
+
   private final JoystickButton zeroGyro =
       new JoystickButton(driver, XboxController.Button.kY.value);
   private final JoystickButton robotCentric =
@@ -117,8 +120,8 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new exampleAuto(s_Swerve);
+    //return new exampleAuto(s_Swerve);
     //return new inFrontAuto(s_Swerve, c_Conveyor);
-
+    return new moreStupidAuto(s_Swerve, c_Conveyor);
   }
 }

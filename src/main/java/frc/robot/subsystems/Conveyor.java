@@ -12,27 +12,27 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class Conveyor extends SubsystemBase {
     
-    private CANSparkMax topIntakeMotor;
+    //private CANSparkMax topIntakeMotor;
     private CANSparkMax bottomIntakeMotor;
     private CANSparkMax conveyorMotor;
     private CANSparkMax shooterMotor;
     private Timer t_Timer = new Timer();
     public Conveyor(){
-        topIntakeMotor = new CANSparkMax(Constants.Conveyor.topIntakeMotorID, MotorType.kBrushless);
+        //topIntakeMotor = new CANSparkMax(Constants.Conveyor.topIntakeMotorID, MotorType.kBrushless);
         bottomIntakeMotor = new CANSparkMax(Constants.Conveyor.bottomIntakeMotorID, MotorType.kBrushless);
         conveyorMotor = new CANSparkMax(Constants.Conveyor.transportMotorID, MotorType.kBrushless);
         shooterMotor = new CANSparkMax(Constants.Conveyor.shooterMotorID, MotorType.kBrushless);
     }
 
     public void runIntake(){
-        topIntakeMotor.set(-1);
+        //topIntakeMotor.set(-1);
         bottomIntakeMotor.set(1);
         conveyorMotor.set(0.5);
         //shooterMotor.set(1);
     }
 
     public void stopIntake(){
-        topIntakeMotor.set(0);
+        //topIntakeMotor.set(0);
         bottomIntakeMotor.set(0);
         conveyorMotor.set(0);
         //shooterMotor.set(0);  
@@ -79,6 +79,19 @@ public class Conveyor extends SubsystemBase {
         t_Timer.stop();
         t_Timer.reset();
         shooterMotor.stopMotor();
+        conveyorMotor.stopMotor();
+    }
+
+    public void autoIntake(){
+        t_Timer.start();
+
+        while(t_Timer.get() <= 0.5){
+            bottomIntakeMotor.set(1);
+            conveyorMotor.set(1);
+        }
+        t_Timer.stop();
+        t_Timer.reset();
+        bottomIntakeMotor.stopMotor();
         conveyorMotor.stopMotor();
     }
 

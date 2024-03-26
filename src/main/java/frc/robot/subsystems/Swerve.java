@@ -67,7 +67,7 @@ public class Swerve extends SubsystemBase {
     SmartDashboard.putNumber("DRIVE",translation.getX());
     
   }
-
+  
   /* Used by SwerveControllerCommand in Auto */
   public void setModuleStates(SwerveModuleState[] desiredStates) {
     SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, Constants.Swerve.maxSpeed);
@@ -110,6 +110,15 @@ public class Swerve extends SubsystemBase {
 
   public double getHeadingDegrees() { //gets the direction the robot is heading
     return -Math.IEEEremainder((gyro.getAngle()), 360);
+  }
+
+  public void stupidTrajectory(double distance, double rotation){
+    double startDistance = mSwerveMods[0].getEncoderPosition(); 
+   
+    while(mSwerveMods[0].getEncoderPosition() <= startDistance + distance){
+      drive(new Translation2d(0.5, 0), 0, true, true);
+    }
+    drive(new Translation2d(0,0), 0, true, true);
   }
 
   @Override
